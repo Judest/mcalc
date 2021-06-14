@@ -4,13 +4,9 @@ namespace ConsoleApp5
 {
     class Program
     {
-        static Material[] materials = Material.ReadFromCsvFile("Materials.csv");
-        //new[]
-        //{
-        //    new Material{ Name = "Алюминий", Density = 2.7 },
-        //    new Material{ Name = "Медь", Density = 4.5 },
-        //};
-        static void countWeight(double densityMat)
+        static Material[] materials = Material.GetList();
+
+static void countWeight(double densityMat)
         {
             double widthAluminum = readFromConsole("Какова ширина шины в мм");
             double thicknessAluminum = readFromConsole("Какова толщина шины в мм");
@@ -66,10 +62,16 @@ namespace ConsoleApp5
             {
                 do
                 {
+                    if (materials == null || materials.Length < 1)
+                    {
+                        Console.WriteLine("Отсутствует список материалов..");
+                        break;
+                    }
+
                     Console.WriteLine("\n\nДоступные материалы:");
                     for (int i = 0; i < materials.Length; i++)
                     {
-                        Console.WriteLine($"{i}: {materials[i].Name}");
+                        Console.WriteLine($"{i}: {materials[i].Name} - {materials[i].Density}");
                     }
 
                     int choiceMaterial = readFromConsole("Выберите материал");
