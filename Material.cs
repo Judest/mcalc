@@ -5,14 +5,25 @@ namespace ConsoleApp5
 {
     class Material
     {
-        public static Material[] ReadFromCsvFile(string fileName)
+        public static Material[] GetList()
         {
-            return
-            File
+            var fileName = "materials";
+
+            // if file does not exists, return default list
+            if (!File.Exists(fileName))
+            {
+                return new[]
+                {
+                    new Material{ Name = "Алюминий", Density = 2.7 },
+                    new Material{ Name = "Медь", Density = 8.9 },
+                };
+            }
+
+            return File
             .ReadLines(fileName)
             .Select(x =>
             {
-                var array = x.Split(',');
+                var array = x.Split(' ');
                 return new Material
                 {
                     Name = array[0],
